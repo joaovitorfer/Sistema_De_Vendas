@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import com.ufla.Servicos.GerenciadorUsuariosCSV;
 
-public class Teste {
+public class TesteUsuarios {
     public static void main(String[] args) {
         System.out.println(" --- INICIANDO TESTE DO SISTEMA DE ARQUIVOS --- \n");
 

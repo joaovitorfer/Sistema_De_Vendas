@@ -9,9 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ufla.usuarios.Cliente;
-import com.ufla.usuarios.Lojista;
-import com.ufla.usuarios.Usuario;
+import com.ufla.usuarios.*;
 
 public class GerenciadorUsuariosCSV {
     private static final String ARQUIVO_USUARIOS = "dados/usuarios.csv";
