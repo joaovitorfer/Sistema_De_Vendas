@@ -1,11 +1,21 @@
 package com.ufla.produtos;
 
-public class Produto {
+public abstract class Produto {
     private int idProduto;
     private String nome;
     private float preco;
     private String descricao;
     private int estoque;
+
+    public Produto(int idProduto, String nome, double preco, String descricao, int estoque) {
+        this.idProduto = idProduto;
+        this.nome = nome;
+        this.preco = (float) preco;
+        this.descricao = descricao;
+        this.estoque = estoque;
+    }
+
+    public abstract void exibirDetalhesTecnicos();
 
     public void aplicarDesconto() {
 
@@ -36,7 +46,11 @@ public class Produto {
     }
 
     public void setPreco(float preco) {
-        this.preco = preco;
+        if (preco > 0) {
+            this.preco = preco;
+        } else {
+            System.out.println("Preço inválido. O preço deve ser maior que zero.");
+        }
     }
 
     public String getDescricao() {

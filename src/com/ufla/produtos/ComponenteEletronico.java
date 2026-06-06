@@ -1,8 +1,20 @@
 package com.ufla.produtos;
 
-public class ComponenteEletronico extends Produto {
+public abstract class ComponenteEletronico extends Produto {
     private String fabricante;
     private String datasheet;
+
+    public ComponenteEletronico(int idProduto, String nome, double preco, String descricao, int estoque, String fabricante, String datasheet) {
+        super(idProduto, nome, preco, descricao, estoque);
+        this.fabricante = fabricante;
+        this.datasheet = datasheet;
+    }
+
+    @Override
+    public void exibirDetalhesTecnicos() {
+        System.out.println("Fabricante: " + fabricante);
+        System.out.println("Datasheet: " + datasheet);
+    }
 
     public boolean validarEspecificacao() {
     	boolean conferir = false;
