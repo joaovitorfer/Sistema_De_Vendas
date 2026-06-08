@@ -54,7 +54,7 @@ public abstract class Usuario {
 	}
 
 	public void login() {
-		
+		System.out.println(nomeUsuario + " entrou no sistema.");
 	}
 	
 	public void logout() {
