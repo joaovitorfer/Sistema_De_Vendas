@@ -1,0 +1,4 @@
+tipo;idProduto;nome;preco;descricao;estoque;fabricante;datasheet;atributo1;atributo2
+Resistor;1001;Resistor 1k;0.5;Resistor de precisão;100;Fabricante X;datasheet_res.pdf;1000.0;0.25
+LED;2001;LED Vermelho;1.2;LED 5mm alto brilho;50;Fabricante Y;datasheet_led.pdf;Vermelho;2.0
+Capacitor;3001;Capacitor 100uF;2.5;Eletrolítico;30;Fabricante Z;datasheet_cap.pdf;100.0;16.0
