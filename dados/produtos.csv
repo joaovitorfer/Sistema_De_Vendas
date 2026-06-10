@@ -1,4 +1,25 @@
 tipo;idProduto;nome;preco;descricao;estoque;fabricante;datasheet;atributo1;atributo2
-Resistor;1001;Resistor 1k;0.5;Resistor de precisão;50;Fabricante X;datasheet_res.pdf;1000.0;0.25
-LED;2001;LED Vermelho;1.2;LED 5mm alto brilho;-40;Fabricante Y;datasheet_led.pdf;Vermelho;2.0
-Capacitor;3001;Capacitor 100uF;2.5;Eletrolítico;0;Fabricante Z;datasheet_cap.pdf;100.0;16.0
+Resistor;1001;Resistor 220 Ohms;0.4;Resistor comum;120;Fabricante X;datasheet_res220.pdf;220.0;0.25
+Resistor;1002;Resistor 470 Ohms;0.4;Resistor comum;90;Fabricante X;datasheet_res470.pdf;470.0;0.25
+Resistor;1003;Resistor 1k;0.5;Resistor de precisão;50;Fabricante X;datasheet_res1k.pdf;1000.0;0.25
+Resistor;1004;Resistor 10k;0.7;Resistor de precisão;80;Fabricante X;datasheet_res10k.pdf;10000.0;0.25
+LED;2001;LED Vermelho;1.2;LED 5mm alto brilho;40;Fabricante Y;datasheet_led_vermelho.pdf;Vermelho;2.0
+LED;2002;LED Azul;1.5;LED 5mm alto brilho;60;Fabricante Y;datasheet_led_azul.pdf;Azul;3.0
+LED;2003;LED Verde;1.3;LED 5mm alto brilho;35;Fabricante Y;datasheet_led_verde.pdf;Verde;2.2
+LED;2004;LED Amarelo;1.1;LED 5mm alto brilho;25;Fabricante Y;datasheet_led_amarelo.pdf;Amarelo;2.1
+Capacitor;3001;Capacitor 10uF;1.8;Capacitor eletrolítico;60;Fabricante Z;datasheet_cap10.pdf;10.0;25.0
+Capacitor;3002;Capacitor 100uF;2.5;Capacitor eletrolítico;45;Fabricante Z;datasheet_cap100.pdf;100.0;16.0
+Capacitor;3003;Capacitor 470uF;4.5;Capacitor eletrolítico;20;Fabricante Z;datasheet_cap470.pdf;470.0;25.0
+Capacitor;3004;Capacitor 1000uF;6.0;Capacitor eletrolítico;15;Fabricante Z;datasheet_cap1000.pdf;1000.0;35.0
+Cabo;4001;Cabo USB-C;15.9;Cabo USB-C 1 metro;25;Fabricante A;datasheet_usb_c.pdf;USB-C;1.0
+Cabo;4002;Cabo HDMI;22.9;Cabo HDMI 2 metros;20;Fabricante A;datasheet_hdmi.pdf;HDMI;2.0
+Cabo;4003;Cabo Ethernet CAT6;18.5;Cabo de rede;30;Fabricante A;datasheet_cat6.pdf;CAT6;5.0
+Cabo;4004;Cabo P2;8.5;Cabo de áudio;40;Fabricante A;datasheet_p2.pdf;P2;1.5
+PlacaMicrocontroladora;5001;Arduino Uno;75.0;Placa Arduino Uno;12;Fabricante B;datasheet_arduino.pdf;ATmega328P;32
+PlacaMicrocontroladora;5002;ESP32;45.0;Placa ESP32 WiFi Bluetooth;18;Fabricante B;datasheet_esp32.pdf;ESP32;520
+PlacaMicrocontroladora;5003;Raspberry Pi Pico;35.0;Placa Raspberry Pi Pico;15;Fabricante B;datasheet_pico.pdf;RP2040;264
+PlacaMicrocontroladora;5004;Arduino Mega;120.0;Placa Arduino Mega;8;Fabricante B;datasheet_mega.pdf;ATmega2560;256
+Sensor;6001;Sensor Ultrassonico HC-SR04;18.5;Sensor de distância;30;Fabricante C;datasheet_hcsr04.pdf;Ultrassonico;2.0
+Sensor;6002;Sensor DHT11;12.0;Sensor de temperatura e umidade;40;Fabricante C;datasheet_dht11.pdf;Temperatura;5.0
+Sensor;6003;Sensor PIR;14.5;Sensor de movimento;22;Fabricante C;datasheet_pir.pdf;Movimento;7.0
+Sensor;6004;Sensor de Luz LDR;5.5;Sensor fotoresistor;75;Fabricante C;datasheet_ldr.pdf;Luminosidade;1.0
