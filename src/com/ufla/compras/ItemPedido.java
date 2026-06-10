@@ -4,7 +4,7 @@ import com.ufla.produtos.Produto;
 
 public class ItemPedido {
 	private int quantidade;
-	private float precoUnitario;
+	private double precoUnitario;
 	private Produto produto;
 	
 	public ItemPedido(Produto produto, int quantidade) {
@@ -12,7 +12,7 @@ public class ItemPedido {
 		this.precoUnitario = produto.getPreco();
 		setQuantidade(quantidade);
 	}
-	public float calcularSubtotal() {
+	public double calcularSubtotal() {
 		return quantidade * precoUnitario;
 	}
 
@@ -28,7 +28,7 @@ public class ItemPedido {
 		}
 	}
 
-	public float getPrecoUnitario() {
+	public double getPrecoUnitario() {
 		return precoUnitario;
 	}
 

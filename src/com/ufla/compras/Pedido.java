@@ -13,8 +13,7 @@ public class Pedido {
     public Pedido(int idPedido, ArrayList<ItemPedido> itens) {
         this.idPedido = idPedido;
         this.itens = itens;
-        this.status = "Pendente";
-        this.data = "";
+        this.status = "concluido";
         this.valorTotal = calcularTotal();
     }
 
@@ -29,10 +28,9 @@ public class Pedido {
 	}
 
 	public String gerarFatura(){
-		String fatura = "idPedido: " + idPedido +
+		String fatura = "\nTotal de produtos: " + calcularQuantidadeProdutos() +
                 "\nvalor total: " + valorTotal +
-                "\nstatus: " + status +
-                "\ndata: " + data;
+                "\nstatus: " + status;
 		return fatura; 
 	}
 
@@ -50,6 +48,16 @@ public class Pedido {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	
+	public int calcularQuantidadeProdutos() {
+	    int total = 0;
+
+	    for (ItemPedido item : itens) {
+	        total += item.getQuantidade();
+	    }
+
+	    return total;
 	}
 	
 	public String getData() {
