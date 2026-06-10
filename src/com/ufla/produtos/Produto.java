@@ -3,14 +3,14 @@ package com.ufla.produtos;
 public abstract class Produto {
     private int idProduto;
     private String nome;
-    private float preco;
+    private double preco;
     private String descricao;
     private int estoque;
 
     public Produto(int idProduto, String nome, double preco, String descricao, int estoque) {
         this.idProduto = idProduto;
         this.nome = nome;
-        this.preco = (float) preco;
+        this.preco = preco;
         this.descricao = descricao;
         this.estoque = estoque;
     }
@@ -41,7 +41,7 @@ public abstract class Produto {
         this.nome = nome;
     }
 
-    public float getPreco() {
+    public double getPreco() {
         return preco;
     }
 
