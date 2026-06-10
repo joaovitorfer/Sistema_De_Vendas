@@ -1,57 +1,62 @@
 package com.ufla.compras;
 
+import java.util.ArrayList;
+
 public class Pedido {
 
-    private int idPedido;
-    private double valorTotal;
-    private String status;
-    private String data;
+	private int idPedido;
+	private float valorTotal;
+	private String status;
+	private String data;
+	private ArrayList<ItemPedido> itens;
 
-    public Pedido(int idPedido, double valorTotal, String status, String data) {
+    public Pedido(int idPedido, ArrayList<ItemPedido> itens) {
         this.idPedido = idPedido;
-        this.valorTotal = valorTotal;
-        this.status = status;
-        this.data = data;
+        this.itens = itens;
+        this.status = "Pendente";
+        this.data = "";
+        this.valorTotal = calcularTotal();
     }
 
-    public String gerarFatura() {
-        return "idPedido: " + idPedido +
-               "\nvalor total: " + valorTotal +
-               "\nstatus: " + status +
-               "\ndata: " + data;
-    }
+	public float calcularTotal() {
+		float total = 0;
 
-    public int getIdPedido() {
-        return idPedido;
-    }
+		for (ItemPedido item : itens) {
+			total += item.calcularSubtotal();
+		}
 
-    public void setIdPedido(int idPedido) {
-        this.idPedido = idPedido;
-    }
+		return total;
+	}
 
-    public double getValorTotal() {
-        return valorTotal;
-    }
+	public String gerarFatura(){
+		String fatura = "idPedido: " + idPedido +
+                "\nvalor total: " + valorTotal +
+                "\nstatus: " + status +
+                "\ndata: " + data;
+		return fatura; 
+	}
 
-    public void setValorTotal(double valorTotal) {
-        if (valorTotal >= 0) {
-            this.valorTotal = valorTotal;
-        }
-    }
+	public int getIdPedido() {
+		return idPedido;
+	}
 
-    public String getStatus() {
-        return status;
-    }
+	public float getValorTotal() {
+		return valorTotal;
+	}
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+	public String getStatus() {
+		return status;
+	}
 
-    public String getData() {
-        return data;
-    }
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
+	public String getData() {
+		return data;
+	}
 
-    public void setData(String data) {
-        this.data = data;
-    }
+	public ArrayList<ItemPedido> getItens() {
+		return itens;
+	}
 }

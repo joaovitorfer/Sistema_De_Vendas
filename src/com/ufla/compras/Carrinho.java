@@ -6,78 +6,90 @@ import com.ufla.produtos.Produto;
 
 public class Carrinho {
 
-    private int idCarrinho;
-    private String dataCriacao;
-    private String status;
-    private ArrayList<ItemPedido> itens;
+	private int idCarrinho;
+	private String dataCriacao;
+	private String status;
 
-    public Carrinho(int idCarrinho, String dataCriacao, String status) {
-        this.idCarrinho = idCarrinho;
-        this.dataCriacao = dataCriacao;
-        this.status = status;
-        this.itens = new ArrayList<>();
-    }
+	private ArrayList<ItemPedido> itens;
+	
+	public Carrinho(int idCarrinho, String dataCriacao) {
+		this.idCarrinho = idCarrinho;
+		this.dataCriacao = dataCriacao;
+		this.status = "Ativo";
+		this.itens = new ArrayList<>();
+	}
+	
+	public void adicionarItem(Produto produto, int quantidade) {
+		for (ItemPedido item : itens) {
 
-    public void adicionarItem(Produto produto, int quantidade) {
-        ItemPedido item = new ItemPedido(produto, quantidade);
-        itens.add(item);
-    }
+			if (item.getProduto().getIdProduto() == produto.getIdProduto()) {
 
-    public void removerItem(Produto produto) {
-        itens.removeIf(item ->
-                item.getProduto().getIdProduto() == produto.getIdProduto());
-    }
+				if (item.getQuantidade() + quantidade > produto.getEstoque()) {
+					System.out.println("Quantidade maior que o estoque disponível.");
+					return;
+				}
 
-    public double calcularTotal() {
-        double total = 0;
+				item.setQuantidade(item.getQuantidade() + quantidade);
+				return;
+			}
+		}
 
-        for (ItemPedido item : itens) {
-            total += item.calcularSubtotal();
-        }
+		if (quantidade > produto.getEstoque()) {
+			System.out.println("Quantidade maior que o estoque disponível.");
+			return;
+		}
 
-        return total;
-    }
+    	itens.add(new ItemPedido(produto, quantidade));
+	}
 
-    public void listarItens() {
-        if (itens.isEmpty()) {
-            System.out.println("Carrinho vazio.");
-            return;
-        }
+	public void removerItem(int idProduto) {
+		for (ItemPedido item : itens) {
+			if (item.getProduto().getIdProduto() == idProduto) {
+				itens.remove(item);
+				return;
+			}
+		}
+	}
+	public float calcularTotal() {
+		float total = 0;
+		for (ItemPedido item : itens) {
+			total += item.calcularSubtotal();
+		}
+		return total;
+	}
 
-        for (ItemPedido item : itens) {
-            System.out.println(item);
-        }
-    }
+	public int getIdCarrinho() {
+		return idCarrinho;
+	}
 
-    public int getIdCarrinho() {
-        return idCarrinho;
-    }
+	public String getDataCriacao() {
+		return dataCriacao;
+	}
 
-    public void setIdCarrinho(int idCarrinho) {
-        this.idCarrinho = idCarrinho;
-    }
+	public String getStatus() {
+		return status;
+	}
 
-    public String getDataCriacao() {
-        return dataCriacao;
-    }
+	public ArrayList<ItemPedido> getItens() {
+		return itens;
+	}
 
-    public void setDataCriacao(String dataCriacao) {
-        this.dataCriacao = dataCriacao;
-    }
+	public Pedido finalizarPedido(int idPedido) {
+		if (itens.isEmpty()) {
+			System.out.println("O carrinho está vazio. Adicione itens antes de finalizar o pedido.");
+			return null;
+		}
 
-    public String getStatus() {
-        return status;
-    }
+		Pedido pedido = new Pedido(idPedido, itens);
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+		for (ItemPedido item : itens) {
+			Produto produto = item.getProduto();
+			int novaQuantidade = produto.getEstoque() - item.getQuantidade();
+			produto.setEstoque(novaQuantidade);
+		}
 
-    public ArrayList<ItemPedido> getItens() {
-        return itens;
-    }
-
-    public void setItens(ArrayList<ItemPedido> itens) {
-        this.itens = itens;
-    }
+		this.status = "Finalizado";
+		
+		return pedido;
+	}
 }
