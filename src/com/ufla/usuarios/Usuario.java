@@ -11,7 +11,7 @@ package com.ufla.usuarios;
  * <p>Por ser abstrata, não pode ser instanciada diretamente, devendo
  * ser herdada por classes concretas como Cliente e Lojista.</p>
  *
- * @author SeuNome
+ * @author Grupo 2 - UFLA
  * @version 1.0
  */
 public abstract class Usuario {

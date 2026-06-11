@@ -11,15 +11,34 @@ import java.util.List;
 
 import com.ufla.usuarios.*;
 
+/**
+ * Classe responsável pela persistência dos usuários em arquivos CSV.
+ * Permite salvar e carregar clientes e lojistas cadastrados no sistema.
+ *
+ * @author Grupo 2 - UFLA
+ * @version 1.0
+ */
 public class GerenciadorUsuariosCSV {
+
+    /**
+     * Caminho do arquivo utilizado para armazenamento dos usuários.
+     */
     private static final String ARQUIVO_USUARIOS = "dados/usuarios.csv";
 
-public static void salvarUsuarios(List<Usuario> usuarios) {
+    /**
+     * Salva uma lista de usuários em um arquivo CSV.
+     * Clientes e lojistas são armazenados juntamente com
+     * suas informações específicas.
+     *
+     * @param usuarios lista de usuários a serem salvos
+     */
+    public static void salvarUsuarios(List<Usuario> usuarios) {
+
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(ARQUIVO_USUARIOS))) {
 
             bw.write("id;nomeUsuario;email;senha;tipo;cpf_cnpj;telefone;endereco");
             bw.newLine();
-            
+
             for (Usuario usuario : usuarios) {
 
                 String linha = String.format("%d;%s;%s;%s;%s;%s;%s;%s",
@@ -37,13 +56,20 @@ public static void salvarUsuarios(List<Usuario> usuarios) {
 
                 bw.write(linha);
                 bw.newLine();
-
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Carrega os usuários armazenados no arquivo CSV.
+     * Os objetos são recriados de acordo com o tipo
+     * registrado no arquivo.
+     *
+     * @return lista de usuários carregados
+     */
     public List<Usuario> carregarUsuarios() {
 
         List<Usuario> usuarios = new ArrayList<>();
@@ -55,11 +81,14 @@ public static void salvarUsuarios(List<Usuario> usuarios) {
         }
 
         try (BufferedReader br = new BufferedReader(new FileReader(ARQUIVO_USUARIOS))) {
+
             String linha;
             br.readLine();
 
             while ((linha = br.readLine()) != null) {
+
                 String[] dados = linha.split(";");
+
                 int id = Integer.parseInt(dados[0]);
                 String nomeUsuario = dados[1];
                 String email = dados[2];
@@ -67,21 +96,43 @@ public static void salvarUsuarios(List<Usuario> usuarios) {
                 String tipo = dados[4];
 
                 if (tipo.equals("Cliente")) {
+
                     String cpf = dados[5];
                     String telefone = dados[6];
                     String endereco = dados[7];
-                    Cliente cliente = new Cliente(id, nomeUsuario, email, senha, cpf, telefone, endereco);
+
+                    Cliente cliente = new Cliente(
+                            id,
+                            nomeUsuario,
+                            email,
+                            senha,
+                            cpf,
+                            telefone,
+                            endereco
+                    );
+
                     usuarios.add(cliente);
 
                 } else if (tipo.equals("Lojista")) {
+
                     String cnpj = dados[5];
-                    Lojista lojista = new Lojista(id, nomeUsuario, email, senha, cnpj);
+
+                    Lojista lojista = new Lojista(
+                            id,
+                            nomeUsuario,
+                            email,
+                            senha,
+                            cnpj
+                    );
+
                     usuarios.add(lojista);
                 }
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         return usuarios;
     }
 }

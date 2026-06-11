@@ -8,7 +8,7 @@ package com.ufla.usuarios;
  * vendedor, como o CNPJ. Além disso, disponibiliza funcionalidades para
  * cadastro de produtos e atualização de estoque.</p>
  *
- * @author SeuNome
+ * @author Grupo 2 - UFLA
  * @version 1.0
  */
 public class Lojista extends Usuario {

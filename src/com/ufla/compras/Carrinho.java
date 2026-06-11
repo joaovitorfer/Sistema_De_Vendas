@@ -4,92 +4,166 @@ import java.util.ArrayList;
 
 import com.ufla.produtos.Produto;
 
+/**
+ * Representa um carrinho de compras do sistema.
+ * O carrinho armazena itens selecionados pelo cliente,
+ * permitindo adicionar, remover produtos, calcular o valor
+ * total da compra e finalizar um pedido.
+ *
+ * @author Grupo 2 - UFLA
+ * @version 1.0
+ */
 public class Carrinho {
 
-	private int idCarrinho;
-	private String dataCriacao;
-	private String status;
+    /** Identificador único do carrinho. */
+    private int idCarrinho;
 
-	private ArrayList<ItemPedido> itens;
-	
-	public Carrinho(int idCarrinho, String dataCriacao) {
-		this.idCarrinho = idCarrinho;
-		this.dataCriacao = dataCriacao;
-		this.status = "Ativo";
-		this.itens = new ArrayList<>();
-	}
-	
-	public void adicionarItem(Produto produto, int quantidade) {
-		for (ItemPedido item : itens) {
+    /** Data de criação do carrinho. */
+    private String dataCriacao;
 
-			if (item.getProduto().getIdProduto() == produto.getIdProduto()) {
+    /** Status atual do carrinho (Ativo ou Finalizado). */
+    private String status;
 
-				if (item.getQuantidade() + quantidade > produto.getEstoque()) {
-					System.out.println("Quantidade maior que o estoque disponível.");
-					return;
-				}
+    /** Lista de itens presentes no carrinho. */
+    private ArrayList<ItemPedido> itens;
 
-				item.setQuantidade(item.getQuantidade() + quantidade);
-				return;
-			}
-		}
+    /**
+     * Constrói um novo carrinho de compras.
+     *
+     * @param idCarrinho identificador do carrinho
+     * @param dataCriacao data de criação do carrinho
+     */
+    public Carrinho(int idCarrinho, String dataCriacao) {
+        this.idCarrinho = idCarrinho;
+        this.dataCriacao = dataCriacao;
+        this.status = "Ativo";
+        this.itens = new ArrayList<>();
+    }
 
-		if (quantidade > produto.getEstoque()) {
-			System.out.println("Quantidade maior que o estoque disponível.");
-			return;
-		}
+    /**
+     * Adiciona um produto ao carrinho.
+     * Caso o produto já exista na lista de itens,
+     * sua quantidade é incrementada.
+     * A quantidade adicionada não pode ultrapassar
+     * o estoque disponível.
+     *
+     * @param produto produto a ser adicionado
+     * @param quantidade quantidade desejada
+     */
+    public void adicionarItem(Produto produto, int quantidade) {
+        for (ItemPedido item : itens) {
 
-    	itens.add(new ItemPedido(produto, quantidade));
-	}
+            if (item.getProduto().getIdProduto() == produto.getIdProduto()) {
 
-	public void removerItem(int idProduto) {
-		for (ItemPedido item : itens) {
-			if (item.getProduto().getIdProduto() == idProduto) {
-				itens.remove(item);
-				return;
-			}
-		}
-	}
-	public float calcularTotal() {
-		float total = 0;
-		for (ItemPedido item : itens) {
-			total += item.calcularSubtotal();
-		}
-		return total;
-	}
+                if (item.getQuantidade() + quantidade > produto.getEstoque()) {
+                    System.out.println("Quantidade maior que o estoque disponível.");
+                    return;
+                }
 
-	public int getIdCarrinho() {
-		return idCarrinho;
-	}
+                item.setQuantidade(item.getQuantidade() + quantidade);
+                return;
+            }
+        }
 
-	public String getDataCriacao() {
-		return dataCriacao;
-	}
+        if (quantidade > produto.getEstoque()) {
+            System.out.println("Quantidade maior que o estoque disponível.");
+            return;
+        }
 
-	public String getStatus() {
-		return status;
-	}
+        itens.add(new ItemPedido(produto, quantidade));
+    }
 
-	public ArrayList<ItemPedido> getItens() {
-		return itens;
-	}
+    /**
+     * Remove um produto do carrinho a partir do seu identificador.
+     *
+     * @param idProduto identificador do produto a ser removido
+     */
+    public void removerItem(int idProduto) {
+        for (ItemPedido item : itens) {
+            if (item.getProduto().getIdProduto() == idProduto) {
+                itens.remove(item);
+                return;
+            }
+        }
+    }
 
-	public Pedido finalizarPedido(int idPedido) {
-		if (itens.isEmpty()) {
-			System.out.println("O carrinho está vazio. Adicione itens antes de finalizar o pedido.");
-			return null;
-		}
+    /**
+     * Calcula o valor total dos itens presentes no carrinho.
+     *
+     * @return valor total da compra
+     */
+    public float calcularTotal() {
+        float total = 0;
 
-		Pedido pedido = new Pedido(idPedido, itens);
+        for (ItemPedido item : itens) {
+            total += item.calcularSubtotal();
+        }
 
-		for (ItemPedido item : itens) {
-			Produto produto = item.getProduto();
-			int novaQuantidade = produto.getEstoque() - item.getQuantidade();
-			produto.setEstoque(novaQuantidade);
-		}
+        return total;
+    }
 
-		this.status = "Finalizado";
-		
-		return pedido;
-	}
+    /**
+     * Retorna o identificador do carrinho.
+     *
+     * @return id do carrinho
+     */
+    public int getIdCarrinho() {
+        return idCarrinho;
+    }
+
+    /**
+     * Retorna a data de criação do carrinho.
+     *
+     * @return data de criação
+     */
+    public String getDataCriacao() {
+        return dataCriacao;
+    }
+
+    /**
+     * Retorna o status atual do carrinho.
+     *
+     * @return status do carrinho
+     */
+    public String getStatus() {
+        return status;
+    }
+
+    /**
+     * Retorna a lista de itens do carrinho.
+     *
+     * @return lista de itens
+     */
+    public ArrayList<ItemPedido> getItens() {
+        return itens;
+    }
+
+    /**
+     * Finaliza o carrinho e gera um pedido.
+     * Após a finalização, o estoque dos produtos
+     * é atualizado e o status do carrinho passa
+     * para "Finalizado".
+     *
+     * @param idPedido identificador do pedido a ser criado
+     * @return pedido gerado ou {@code null} caso o carrinho esteja vazio
+     */
+    public Pedido finalizarPedido(int idPedido) {
+
+        if (itens.isEmpty()) {
+            System.out.println("O carrinho está vazio. Adicione itens antes de finalizar o pedido.");
+            return null;
+        }
+
+        Pedido pedido = new Pedido(idPedido, itens);
+
+        for (ItemPedido item : itens) {
+            Produto produto = item.getProduto();
+            int novaQuantidade = produto.getEstoque() - item.getQuantidade();
+            produto.setEstoque(novaQuantidade);
+        }
+
+        this.status = "Finalizado";
+
+        return pedido;
+    }
 }

@@ -10,7 +10,7 @@ import java.time.LocalDate;
  * específicas de um cliente, como CPF, telefone, endereço e um
  * carrinho de compras.</p>
  * 
- * @author SeuNome
+ * @author Grupo 2 - UFLA
  * @version 1.0
  */
 public class Cliente extends Usuario {
