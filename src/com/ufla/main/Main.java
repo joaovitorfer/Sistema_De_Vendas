@@ -11,6 +11,7 @@ import com.ufla.usuarios.Cliente;
 import com.ufla.usuarios.Lojista;
 import com.ufla.Servicos.GerenciadorUsuariosCSV;
 import com.ufla.usuarios.Usuario;
+import com.ufla.Servicos.PromocaoService;
 
 public class Main {
 
@@ -313,6 +314,7 @@ public class Main {
             System.out.println("1 - Listar produtos");
             System.out.println("2 - Alterar estoque");
             System.out.println("3 - Salvar produtos");
+            System.out.println("4 - Aplicar promoção");
             System.out.println("0 - Voltar");
 
             opcao = sc.nextInt();
@@ -331,10 +333,13 @@ public class Main {
                     GerenciadorProdutosCSV.salvarProdutos(produtos);
                     System.out.println("Produtos salvos.");
                     break;
+                case 4:
+                    aplicarPromocao();
+                    break;
             }
 
         } while (opcao != 0);
-        clienteLogado = null;
+        lojistaLogado = null;
     }
 
     private static void listarProdutos() {
@@ -352,6 +357,26 @@ public class Main {
                             + " | Estoque: "
                             + p.getEstoque());
         }
+    }
+    
+    private static void aplicarPromocao() {
+
+        listarProdutos();
+
+        System.out.print("ID do produto: ");
+        int id = sc.nextInt();
+
+        Produto produto = buscarProduto(id);
+
+        if (produto == null) {
+            System.out.println("Produto não encontrado.");
+            return;
+        }
+
+        PromocaoService promocao =
+                new PromocaoService(100, 5, 10);
+
+        promocao.aplicarPromocaoAutomatica(produto);
     }
 
     private static Produto buscarProduto(int id) {
