@@ -9,7 +9,7 @@ public abstract class Usuario {
 	public Usuario(int id, String nomeUsuario, String email, String senha){
 			this.id = id;
 			this.nomeUsuario = nomeUsuario;
-			setEmail(email);
+			this.email = email;
 			this.senha = senha;
 	}
 
@@ -37,11 +37,7 @@ public abstract class Usuario {
 	}
 	
 		public void setEmail(String email){
-			if (email != null && email.contains("@")){
-				this.email = email;
-		} else {
-			System.out.println("Formato de email invalido");
-		}
+			this.email = email;
 	}
 	
 	//Senha

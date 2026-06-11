@@ -9,6 +9,8 @@ import com.ufla.compras.Pedido;
 import com.ufla.produtos.Produto;
 import com.ufla.usuarios.Cliente;
 import com.ufla.usuarios.Lojista;
+import com.ufla.Servicos.GerenciadorUsuariosCSV;
+import com.ufla.usuarios.Usuario;
 
 public class Main {
 
@@ -16,21 +18,14 @@ public class Main {
 
     private static List<Produto> produtos;
 
-    private static Cliente cliente = new Cliente(
-            1,
-            "cliente",
-            "cliente@email.com",
-            "123",
-            "11111111111",
-            "999999999",
-            "Rua A");
+    private static GerenciadorUsuariosCSV gerenciadorUsuarios =
+            new GerenciadorUsuariosCSV();
 
-    private static Lojista lojista = new Lojista(
-            2,
-            "lojista",
-            "lojista@email.com",
-            "123",
-            "12345678000100");
+    private static List<Usuario> usuarios =
+            gerenciadorUsuarios.carregarUsuarios();
+
+    private static Cliente clienteLogado = null;
+    private static Lojista lojistaLogado = null;
 
     private static int idPedido = 1;
 
@@ -46,23 +41,209 @@ public class Main {
             System.out.println("1 - Cliente");
             System.out.println("2 - Lojista");
             System.out.println("0 - Sair");
+            
+            
+            opcao = sc.nextInt();
+            
+            
+
+            switch (opcao) {
+
+            case 1:
+                areaCliente();
+                break;
+
+            case 2:
+                areaLojista();
+                break;
+            }
+
+        } while (opcao != 0);
+
+        System.out.println("Sistema encerrado.");
+    }
+    
+    private static void areaCliente() {
+
+        int opcao;
+
+        do {
+
+            System.out.println("\n=== CLIENTE ===");
+            System.out.println("1 - Login");
+            System.out.println("2 - Registrar");
+            System.out.println("0 - Voltar");
 
             opcao = sc.nextInt();
 
             switch (opcao) {
 
                 case 1:
-                    menuCliente();
+                    loginCliente();
                     break;
 
                 case 2:
-                    menuLojista();
+                    registrarCliente();
                     break;
             }
 
         } while (opcao != 0);
+    }
+    
+    private static void areaLojista() {
 
-        System.out.println("Sistema encerrado.");
+        int opcao;
+
+        do {
+
+            System.out.println("\n=== LOJISTA ===");
+            System.out.println("1 - Login");
+            System.out.println("2 - Registrar");
+            System.out.println("0 - Voltar");
+
+            opcao = sc.nextInt();
+
+            switch (opcao) {
+
+                case 1:
+                    loginLojista();
+                    break;
+
+                case 2:
+                    registrarLojista();
+                    break;
+            }
+
+        } while (opcao != 0);
+    }
+    
+    
+    private static void loginCliente() {
+
+        sc.nextLine();
+
+        System.out.print("Email: ");
+        String email = sc.nextLine();
+
+        System.out.print("Senha: ");
+        String senha = sc.nextLine();
+
+        for (Usuario usuario : usuarios) {
+
+            if (usuario instanceof Cliente
+                    && usuario.getEmail().equals(email)
+                    && usuario.getSenha().equals(senha)) {
+
+                clienteLogado = (Cliente) usuario;
+
+                menuCliente();
+
+                return;
+            }
+        }
+
+        System.out.println("Login inválido.");
+    }
+    
+    
+    private static void loginLojista() {
+
+        sc.nextLine();
+
+        System.out.print("Email: ");
+        String email = sc.nextLine();
+
+        System.out.print("Senha: ");
+        String senha = sc.nextLine();
+
+        for (Usuario usuario : usuarios) {
+
+            if (usuario instanceof Lojista
+                    && usuario.getEmail().equals(email)
+                    && usuario.getSenha().equals(senha)) {
+
+                lojistaLogado = (Lojista) usuario;
+
+                menuLojista();
+
+                return;
+            }
+        }
+
+        System.out.println("Login inválido.");
+    }
+    
+    
+    
+    
+    private static void registrarCliente() {
+
+        sc.nextLine();
+
+        System.out.print("Nome: ");
+        String nome = sc.nextLine();
+
+        System.out.print("Email: ");
+        String email = sc.nextLine();
+
+        System.out.print("Senha: ");
+        String senha = sc.nextLine();
+
+        System.out.print("CPF: ");
+        String cpf = sc.nextLine();
+
+        System.out.print("Telefone: ");
+        String telefone = sc.nextLine();
+
+        System.out.print("Endereco: ");
+        String endereco = sc.nextLine();
+
+        Cliente cliente = new Cliente(
+                usuarios.size() + 1,
+                nome,
+                email,
+                senha,
+                cpf,
+                telefone,
+                endereco
+        );
+
+        usuarios.add(cliente);
+
+        GerenciadorUsuariosCSV.salvarUsuarios(usuarios);
+
+        System.out.println("Cliente cadastrado.");
+    }
+    
+    private static void registrarLojista() {
+
+        sc.nextLine();
+
+        System.out.print("Nome: ");
+        String nome = sc.nextLine();
+
+        System.out.print("Email: ");
+        String email = sc.nextLine();
+
+        System.out.print("Senha: ");
+        String senha = sc.nextLine();
+
+        System.out.print("CNPJ: ");
+        String cnpj = sc.nextLine();
+
+        Lojista lojista = new Lojista(
+                usuarios.size() + 1,
+                nome,
+                email,
+                senha,
+                cnpj
+        );
+
+        usuarios.add(lojista);
+
+        GerenciadorUsuariosCSV.salvarUsuarios(usuarios);
+
+        System.out.println("Lojista cadastrado.");
     }
 
     private static void menuCliente() {
@@ -187,7 +368,7 @@ public class Main {
         System.out.print("Quantidade: ");
         int quantidade = sc.nextInt();
 
-        cliente.getCarrinho()
+        clienteLogado.getCarrinho()
                 .adicionarItem(produto, quantidade);
 
         System.out.println("Produto adicionado.");
@@ -197,13 +378,13 @@ public class Main {
 
         System.out.println("\n=== CARRINHO ===");
 
-        for (ItemPedido item : cliente.getCarrinho().getItens()) {
+        for (ItemPedido item : clienteLogado.getCarrinho().getItens()) {
 
             System.out.println(item);
         }
 
         System.out.println(
-                "Total: R$ " + cliente.getCarrinho().calcularTotal());
+                "Total: R$ " + clienteLogado.getCarrinho().calcularTotal());
     }
 
     private static void removerDoCarrinho() {
@@ -211,7 +392,7 @@ public class Main {
         System.out.print("ID do produto: ");
         int id = sc.nextInt();
 
-        cliente.getCarrinho()
+        clienteLogado.getCarrinho()
                 .removerItem(id);
 
         System.out.println("Item removido.");
@@ -219,7 +400,7 @@ public class Main {
 
     private static void finalizarPedido() {
 
-        Pedido pedido = cliente.getCarrinho().finalizarPedido(idPedido);
+        Pedido pedido = clienteLogado.getCarrinho().finalizarPedido(idPedido);
 
         if (pedido == null) {
             return;
