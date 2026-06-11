@@ -197,6 +197,13 @@ public class Main {
 
         System.out.print("Endereco: ");
         String endereco = sc.nextLine();
+        
+        for (Usuario usuario : usuarios) {
+            if (usuario.getEmail().equals(email)) {
+                System.out.println("Já existe um usuário com esse email.");
+                return;
+            }
+        }
 
         Cliente cliente = new Cliente(
                 usuarios.size() + 1,
@@ -230,6 +237,13 @@ public class Main {
 
         System.out.print("CNPJ: ");
         String cnpj = sc.nextLine();
+        
+        for (Usuario usuario : usuarios) {
+            if (usuario.getEmail().equals(email)) {
+                System.out.println("Já existe um usuário com esse email.");
+                return;
+            }
+        }
 
         Lojista lojista = new Lojista(
                 usuarios.size() + 1,
@@ -286,6 +300,7 @@ public class Main {
             }
 
         } while (opcao != 0);
+        clienteLogado = null;
     }
 
     private static void menuLojista() {
@@ -319,6 +334,7 @@ public class Main {
             }
 
         } while (opcao != 0);
+        clienteLogado = null;
     }
 
     private static void listarProdutos() {

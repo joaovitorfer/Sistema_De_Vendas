@@ -80,7 +80,7 @@ public class Carrinho {
 			return null;
 		}
 
-		Pedido pedido = new Pedido(idPedido, itens);
+		Pedido pedido = new Pedido(idPedido, new ArrayList<>(itens));
 
 		for (ItemPedido item : itens) {
 			Produto produto = item.getProduto();
@@ -89,7 +89,7 @@ public class Carrinho {
 		}
 
 		this.status = "Finalizado";
-		
+		itens.clear();
 		return pedido;
 	}
 }
