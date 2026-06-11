@@ -2,45 +2,101 @@ package com.ufla.compras;
 
 import com.ufla.produtos.Produto;
 
+/**
+ * Representa um item de um pedido ou carrinho de compras.
+ * Cada item associa um produto a uma quantidade específica,
+ * armazenando também o preço unitário do produto no momento
+ * da inclusão.
+ *
+ * @author Grupo 2 - UFLA
+ * @version 1.0
+ */
 public class ItemPedido {
-	private int quantidade;
-	private double precoUnitario;
-	private Produto produto;
-	
-	public ItemPedido(Produto produto, int quantidade) {
-		this.produto = produto;
-		this.precoUnitario = produto.getPreco();
-		setQuantidade(quantidade);
-	}
-	public double calcularSubtotal() {
-		return quantidade * precoUnitario;
-	}
 
-	public int getQuantidade() {
-		return quantidade;
-	}
+    /** Quantidade do produto no pedido. */
+    private int quantidade;
 
-	public void setQuantidade(int quantidade) {
-		if (quantidade > 0) {
-			this.quantidade = quantidade;
-		} else {
-			System.err.println("Quantidade deve ser maior que zero.");
-		}
-	}
+    /** Preço unitário do produto. */
+    private double precoUnitario;
 
-	public double getPrecoUnitario() {
-		return precoUnitario;
-	}
+    /** Produto associado ao item. */
+    private Produto produto;
 
-	public Produto getProduto() {
-		return produto;
-	}
+    /**
+     * Cria um novo item de pedido.
+     *
+     * @param produto produto associado ao item
+     * @param quantidade quantidade desejada do produto
+     */
+    public ItemPedido(Produto produto, int quantidade) {
+        this.produto = produto;
+        this.precoUnitario = produto.getPreco();
+        setQuantidade(quantidade);
+    }
 
-	@Override
-	public String toString() {
-		return produto.getNome()
-				+ " | Quantidade: " + quantidade
-				+ " | Preço Unitário: R$ " + precoUnitario
-				+ " | Subtotal: R$ " + calcularSubtotal();
-	}
+    /**
+     * Calcula o subtotal do item.
+     *
+     * @return valor obtido pela multiplicação da quantidade
+     *         pelo preço unitário
+     */
+    public double calcularSubtotal() {
+        return quantidade * precoUnitario;
+    }
+
+    /**
+     * Retorna a quantidade do produto.
+     *
+     * @return quantidade do item
+     */
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    /**
+     * Define a quantidade do produto.
+     * A quantidade deve ser maior que zero.
+     *
+     * @param quantidade nova quantidade do item
+     */
+    public void setQuantidade(int quantidade) {
+        if (quantidade > 0) {
+            this.quantidade = quantidade;
+        } else {
+            System.err.println("Quantidade deve ser maior que zero.");
+        }
+    }
+
+    /**
+     * Retorna o preço unitário do produto.
+     *
+     * @return preço unitário
+     */
+    public double getPrecoUnitario() {
+        return precoUnitario;
+    }
+
+    /**
+     * Retorna o produto associado ao item.
+     *
+     * @return produto do item
+     */
+    public Produto getProduto() {
+        return produto;
+    }
+
+    /**
+     * Retorna uma representação textual do item,
+     * contendo nome do produto, quantidade,
+     * preço unitário e subtotal.
+     *
+     * @return descrição formatada do item
+     */
+    @Override
+    public String toString() {
+        return produto.getNome()
+                + " | Quantidade: " + quantidade
+                + " | Preço Unitário: R$ " + precoUnitario
+                + " | Subtotal: R$ " + calcularSubtotal();
+    }
 }
